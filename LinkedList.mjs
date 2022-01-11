@@ -36,12 +36,8 @@ class LinkedList{
         let newNode = new Node(data);
         // head에 삽입하면 O(1)의 성능
         if(index == 0) {
-            if(this.head == null) {
-                this.head = newNode;
-            } else {
-                newNode.next = this.head;
-                this.head = newNode;
-            }
+            newNode.next = this.head;
+            this.head = newNode;
         } else {
             let currentNode = this.head;
             for(let i = 0; i < index - 1; i++){
@@ -56,25 +52,22 @@ class LinkedList{
 
     // 마지막 삽입
     insertLast(data){
-        let newNode = new Node(data);
-        this.insertAt(this.count, newNode.data);
+        this.insertAt(this.count, data);
     }
 
     // 인덱스 삭제
     deleteAt(index){
         if(index >= this.count || index < 0){
-            throw new Error("범위를 넘어갔습니다.");
+            throw new Error("제거할 수 없습니다.");
         }
 
         let currentNode = this.head;
         // head에서 삭제하면 O(1)의 성능
         if(index == 0){
-            if(this.head != null) {
-                let deleteNode = this.head;
-                this.head = this.head.next;
-                this.count--;
-                return deleteNode;
-            }
+            let deleteNode = this.head;
+            this.head = this.head.next;
+            this.count--;
+            return deleteNode;
         } else{
             for(let i = 0; i < index - 1; i++){
                 currentNode = currentNode.next;
@@ -89,11 +82,7 @@ class LinkedList{
     
     // 마지막 삭제
     deleteLast(){
-        let index = this.count - 1;
-        if(index < 0) {
-            index = 0;
-        }
-        return this.deleteAt(index);
+        return this.deleteAt(this.count - 1);
     }
 
     // 인덱스 읽기

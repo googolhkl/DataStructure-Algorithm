@@ -8,6 +8,10 @@ let node3 = new Node(3);
 node1.next = node2;
 node2.next = node3;
 
+console.log(node1.data);
+console.log(node1.next.data);
+console.log(node1.next.next.data);
+
 let list = new LinkedList();
 
 console.log("===== insertAt() 다섯 번 =====")
@@ -29,7 +33,7 @@ list.clear();
 list.printAll();
 console.log(`count: ${list.count}\n`);
 
-console.log("===== insertAt() 세 번 =====")
+console.log("===== insertLast() 세 번 =====")
 list.insertLast(0);
 list.insertLast(1);
 list.insertLast(2);
