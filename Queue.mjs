@@ -14,7 +14,7 @@ class Queue{
     }
 
     front(){
-        return this.list.getNodeAt(this.list.count - 1);
+        return this.list.tail;
     }
 
     isEmpty(){

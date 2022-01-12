@@ -107,7 +107,16 @@ class DoublyLinkedList{
     
     // 마지막 삭제
     deleteLast(){
-        return this.deleteAt(this.count - 1);
+        let deletedNode = this.tail;
+        if(this.tail.prev == null){
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.tail.prev.next = null;
+            this.tail = this.tail.prev;
+        }
+        this.count--;
+        return deletedNode;
     }
 
     // 인덱스 읽기

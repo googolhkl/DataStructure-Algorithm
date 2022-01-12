@@ -47,7 +47,6 @@ console.log(`count: ${list.count}\n`);
 
 console.log("===== deleteAt(0) =====")
 list.deleteAt(0);
-list.deleteAt(0);
 list.printAll();
 console.log(`count: ${list.count}\n`);
 
