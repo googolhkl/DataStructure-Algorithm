@@ -16,6 +16,7 @@ hashTable.set(14, "이천수"); // 4
 
 console.log(`1: ${hashTable.get(1)}`);
 
-hashTable.remove(1);
+console.log(`remove: ${hashTable.remove(1)}`);
+console.log(`remove: ${hashTable.remove(1)}`);
 console.log(`1: ${hashTable.get(1)}`);
 console.log(`21: ${hashTable.get(21)}`);

@@ -25,26 +25,22 @@ class HashTable{
 
   get(key){
     let currentNode = this.arr[this.hashFunction(key)].head;
-    if(currentNode == null){
-      throw new Error("해당 key에 해당하는 value가 없습니다.");
-    } else{
+    if(currentNode != null){
       while(currentNode != null){
         if(currentNode.data.key == key){
           return currentNode.data.value;
         }
         currentNode = currentNode.next;
       }
-      return null;
     }
+    return null;
   }
 
   remove(key){
     let list = this.arr[this.hashFunction(key)];
     let currentNode = list.head;
     let deletedIndex = 0;
-    if(currentNode == null){
-      throw new Error("해당 key에 해당하는 value가 없습니다.");
-    } else{
+    if(currentNode != null){
       while(currentNode != null){
         if(currentNode.data.key == key){
           return list.deleteAt(deletedIndex);
@@ -52,8 +48,8 @@ class HashTable{
         currentNode = currentNode.next;
         deletedIndex++;
       }
-      return null;
     }
+    return null;
   }
 }
 
