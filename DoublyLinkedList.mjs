@@ -44,6 +44,10 @@ class DoublyLinkedList{
               this.head.prev = newNode;
             }
             this.head = newNode;
+        } else if(index == this.count) { // 마지막에 삽입할 때
+          newNode.next = null;
+          newNode.prev = this.tail;
+          this.tail.next = newNode;
         } else {
             let currentNode = this.head;
             for(let i = 0; i < index - 1; i++){
@@ -88,6 +92,17 @@ class DoublyLinkedList{
             }
             this.count--;
             return deleteNode;
+        } else if(index == this.count - 1){ // 마지막 인덱스인 경우
+          let deletedNode = this.tail;
+          if(this.tail.prev == null){
+              this.head = null;
+              this.tail = null;
+          } else {
+              this.tail.prev.next = null;
+              this.tail = this.tail.prev;
+          }
+          this.count--;
+          return deletedNode;
         } else{
             for(let i = 0; i < index - 1; i++){
                 currentNode = currentNode.next;
@@ -107,16 +122,7 @@ class DoublyLinkedList{
     
     // 마지막 삭제
     deleteLast(){
-        let deletedNode = this.tail;
-        if(this.tail.prev == null){
-            this.head = null;
-            this.tail = null;
-        } else {
-            this.tail.prev.next = null;
-            this.tail = this.tail.prev;
-        }
-        this.count--;
-        return deletedNode;
+      return this.deleteAt(this.count - 1);
     }
 
     // 인덱스 읽기
