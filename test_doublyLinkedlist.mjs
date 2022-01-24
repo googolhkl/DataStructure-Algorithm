@@ -1,4 +1,4 @@
-import { Node, DoublyLinkedList } from './DoublyLinkedList.mjs';
+import { Node, DoublyLinkedList } from './doublyLinkedList.mjs';
 
 let list = new DoublyLinkedList();
 

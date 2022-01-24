@@ -1,4 +1,4 @@
-import { Deque } from "./Deque.mjs";
+import { Deque } from "./deque.mjs";
 
 let deque = new Deque();
 

@@ -1,16 +1,16 @@
-function MergeSort(arr, leftIndex, rightIndex){
+function mergeSort(arr, leftIndex, rightIndex){
 
   if(leftIndex < rightIndex){ // left가 작으면 더 나눌수 있는 상태
     let midIndex = parseInt((leftIndex + rightIndex) / 2); // 배열을 중간 인덱스
 
     // 재귀적으로 동작하는 부분
-    MergeSort(arr, leftIndex, midIndex); // 왼쪽 범위 정렬
-    MergeSort(arr, midIndex + 1, rightIndex); // 오른쪽 범위 정렬
-    Merge(arr, leftIndex, midIndex, rightIndex); // 정렬된 왼쪽과 오른쪽 범위를 합쳐준다.
+    mergeSort(arr, leftIndex, midIndex); // 왼쪽 범위 정렬
+    mergeSort(arr, midIndex + 1, rightIndex); // 오른쪽 범위 정렬
+    merge(arr, leftIndex, midIndex, rightIndex); // 정렬된 왼쪽과 오른쪽 범위를 합쳐준다.
   }
 }
 
-function Merge(arr, leftIndex, midIndex, rightIndex){
+function merge(arr, leftIndex, midIndex, rightIndex){
   let leftAreaIndex = leftIndex;
   let rightAreaIndex = midIndex + 1;
 
@@ -51,6 +51,6 @@ let arr = [3,5,2,4,1,7,8,6];
 
 console.log("===== 정렬 전 =====");
 console.log(arr);
-MergeSort(arr, 0, arr.length - 1);
+mergeSort(arr, 0, arr.length - 1);
 console.log("===== 정렬 후 =====");
 console.log(arr);

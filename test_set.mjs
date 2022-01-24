@@ -1,4 +1,4 @@
-import { HashSet } from "./HashSet.mjs";
+import { HashSet } from "./hashSet.mjs";
 
 let hashSet = new HashSet();
 

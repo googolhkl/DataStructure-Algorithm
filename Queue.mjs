@@ -1,4 +1,4 @@
-import { DoublyLinkedList } from "./DoublyLinkedList.mjs";
+import { DoublyLinkedList } from "./doublyLinkedList.mjs";
 
 class Queue{
     constructor(){

@@ -1,4 +1,4 @@
-import { Stack } from "./Stack.mjs";
+import { Stack } from "./stack.mjs";
 
 let stack = new Stack();
 
