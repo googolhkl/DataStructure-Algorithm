@@ -8,18 +8,14 @@ class BinarySearchTree{
   insert(data){
     if(this.root == null){
       this.root = new BinaryTree(data);
+	  return;
     }
 
     let parentNode = null;
     let currentNode = this.root;
-    let newNode = null;
 
     // 터미널 노드를 만날때까지 값을 비교하면서 내려감
     while(currentNode != null){
-      if(data == currentNode.getData()){ // 중복값은 무시
-        return; // root노드가 설정되면 여기서 함수리턴
-      }
-
       parentNode = currentNode;
 
       if(currentNode.getData() > data){ // 현재 노드가 더 크다면 왼쪽 노드를 참조
@@ -31,7 +27,7 @@ class BinarySearchTree{
 
 
     // 그럼 자식을 만들어 작으면 왼쪽, 크면 오른쪽으로 삽입한다.
-    newNode = new BinaryTree(data);
+    let newNode = new BinaryTree(data);
     if(parentNode.getData() > data){
       parentNode.setLeftSubTree(newNode);
     } else{
@@ -41,14 +37,12 @@ class BinarySearchTree{
 
   search(targetData){
     let currentNode = this.root;
-    let currentData = null;
 
     while(currentNode != null){
-      currentData = currentNode.getData();
 
-      if(currentData == targetData){
+      if(currentNode.getData() == targetData){
         return currentNode;
-      } else if(currentData > targetData){
+      } else if(currentNode.getData() > targetData){
         currentNode = currentNode.getLeftSubTree();
       } else{
         currentNode = currentNode.getRightSubTree();
@@ -142,21 +136,27 @@ class BinarySearchTree{
 
 
 let binarySearchTree = new BinarySearchTree();
-binarySearchTree.insert(50);
-binarySearchTree.insert(39);
-binarySearchTree.insert(38);
-binarySearchTree.insert(65);
-binarySearchTree.insert(61);
-binarySearchTree.insert(59);
-binarySearchTree.insert(63);
-binarySearchTree.insert(58);
-binarySearchTree.insert(60);
-binarySearchTree.insert(62);
-binarySearchTree.insert(64);
+binarySearchTree.insert(18);
+binarySearchTree.insert(15);
+binarySearchTree.insert(10);
+binarySearchTree.insert(6);
+binarySearchTree.insert(3);
+binarySearchTree.insert(8);
+binarySearchTree.insert(12);
+binarySearchTree.insert(11);
+binarySearchTree.insert(31);
+binarySearchTree.insert(27);
+binarySearchTree.insert(24);
+binarySearchTree.insert(20);
+binarySearchTree.insert(33);
+binarySearchTree.insert(35);
+binarySearchTree.insert(37);
 
 binarySearchTree.root.inOrderTraversal(binarySearchTree.root);
-console.log("Search");
-console.log(binarySearchTree.search(0));
+console.log("========== Search 6 ==========");
+console.log(binarySearchTree.search(6));
+console.log("========== Search 1 ==========");
+console.log(binarySearchTree.search(1));
 
-binarySearchTree.remove(50);
-binarySearchTree.root.inOrderTraversal(binarySearchTree.root);
+//binarySearchTree.remove(50);
+//binarySearchTree.root.inOrderTraversal(binarySearchTree.root);
