@@ -53,6 +53,23 @@ class BinaryTree{
     this.postOrderTraversal(tree.getRightSubTree());
     console.log(tree.data);
   }
+
+  /*
+   * 여기부터 BinarySearchTree에 필요한 함수들
+  */
+  removeLeftSubTree(){
+    let deletingNode = this.getLeftSubTree();
+    this.setLeftSubTree(null);
+
+    return deletingNode;
+  }
+
+  removeRightSubTree(){
+    let deletingNode = this.getRightSubTree();
+    this.setRightSubTree(null);
+
+    return deletingNode;
+  }
 }
 
 export { BinaryTree };
