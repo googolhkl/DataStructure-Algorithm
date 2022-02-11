@@ -56,7 +56,7 @@ class AVLTree{
     return childNode; // 자식 노드가 부모가 됐기 때문에 자식노드를 리턴
   }
 
-  Rotation(targetNode, data){
+  rotation(targetNode, data){
     let balanceFactor = this.getBalanceFactor(targetNode);
     let isRootNode = false;
     if(targetNode == this.root){
@@ -101,7 +101,7 @@ class AVLTree{
     }
 
     targetRootNode.height = Math.max(this.getHeight(targetRootNode.getLeftSubTree()), this.getHeight(targetRootNode.getRightSubTree())) + 1;
-    targetRootNode = this.Rotation(targetRootNode, data);
+    targetRootNode = this.rotation(targetRootNode, data);
 
     return targetRootNode;
   }
@@ -119,7 +119,7 @@ class AVLTree{
 
     data = (targetRootNode.getData() > data) ? Infinity : -Infinity;
 
-    targetRootNode = this.Rotation(targetRootNode, data);
+    targetRootNode = this.rotation(targetRootNode, data);
 
     return targetRootNode;
   }
