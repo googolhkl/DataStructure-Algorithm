@@ -92,9 +92,9 @@ class AVLTree{
       }
 
       return targetRootNode;
-    }else if(targetRootNode.data == data){
+    }else if(targetRootNode.getData() == data){
       return targetRootNode;
-    }else if(targetRootNode.data > data){
+    }else if(targetRootNode.getData() > data){
       targetRootNode.setLeftSubTree(this.insert(targetRootNode.getLeftSubTree(), data));
     } else{
       targetRootNode.setRightSubTree(this.insert(targetRootNode.getRightSubTree(), data));
@@ -112,16 +112,42 @@ class AVLTree{
     }else if(targetRootNode.getData() < data && targetRootNode.getRightSubTree() != null){
       targetRootNode.setRightSubTree(this.remove(targetRootNode.getRightSubTree(), data, targetRootNode));
     }else if(targetRootNode.getData() == data){
-      return this.removeHelper(targetRootNode, data, parentNode);
+      targetRootNode = this.removeHelper(targetRootNode, data, parentNode);
+      if(parentNode == null){
+        targetRootNode.height = Math.max(this.getHeight(targetRootNode.getLeftSubTree()), this.getHeight(targetRootNode.getRightSubTree())) + 1;
+        let unBalanceNode = this.getUnBalanceNode(targetRootNode);
+        targetRootNode = this.rotation(targetRootNode, unBalanceNode.getData());
+      }
+      return targetRootNode;
     }
 
     targetRootNode.height = Math.max(this.getHeight(targetRootNode.getLeftSubTree()), this.getHeight(targetRootNode.getRightSubTree())) + 1;
 
-    data = (targetRootNode.getData() > data) ? Infinity : -Infinity;
-
-    targetRootNode = this.rotation(targetRootNode, data);
+    let unBalanceNode = this.getUnBalanceNode(targetRootNode);
+    targetRootNode = this.rotation(targetRootNode, unBalanceNode.getData());
 
     return targetRootNode;
+  }
+
+  getUnBalanceNode(targetRootNode, heightestNode = null){
+    if(targetRootNode.getLeftSubTree() == null && targetRootNode.getRightSubTree() == null){
+      if(this.getHeight(targetRootNode) > this.getHeight(heightestNode)){
+        heightestNode = targetRootNode;
+      }
+
+      return heightestNode;
+    }
+
+    let balanceFactor = this.getBalanceFactor(targetRootNode);
+    if(balanceFactor > 0){ // 왼쪽이 큰 경우
+      heightestNode = this.getUnBalanceNode(targetRootNode.getLeftSubTree(), heightestNode);
+    }else if(balanceFactor < 0){ // 오른쪽이 큰 경우
+      heightestNode = this.getUnBalanceNode(targetRootNode.getRightSubTree(), heightestNode);
+    }else{
+      heightestNode = targetRootNode.getLeftSubTree();
+    }
+
+    return heightestNode;
   }
 
   removeHelper(deletingNode, data, parentNode){
@@ -182,20 +208,34 @@ class AVLTree{
 
 
 let avlTree = new AVLTree();
+console.log("============================= insert =============================");
 avlTree.insert(avlTree.root, 1);
 avlTree.insert(avlTree.root, 2);
 avlTree.insert(avlTree.root, 3);
 avlTree.insert(avlTree.root, 4);
 avlTree.insert(avlTree.root, 5);
+avlTree.insert(avlTree.root, 6);
 avlTree.insert(avlTree.root, 7);
-avlTree.insert(avlTree.root, 8);
+console.log(avlTree.root);
 avlTree.root.inOrderTraversal(avlTree.root);
-console.log("============================= remove =============================");
 
+console.log("============================= remove =============================");
 avlTree.remove(avlTree.root, 2);
 avlTree.remove(avlTree.root, 3);
 avlTree.remove(avlTree.root, 1);
-
 console.log(avlTree.root);
 avlTree.root.inOrderTraversal(avlTree.root);
+
+console.log("============================= search =============================");
 console.log(avlTree.search(7));
+/*
+avlTree.insert(avlTree.root, 3);
+avlTree.insert(avlTree.root, 1);
+avlTree.insert(avlTree.root, 5);
+avlTree.insert(avlTree.root, 4);
+avlTree.insert(avlTree.root, 6);
+avlTree.remove(avlTree.root, 3);
+console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+console.log(avlTree.root);
+avlTree.root.inOrderTraversal(avlTree.root);
+*/
