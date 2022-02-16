@@ -1,75 +1,41 @@
+const RED = false;
+const BLACK = true;
+
 class BinaryTree{
-  constructor(data, leftTree = null, rightTree = null){
+  constructor(data){
     this.data = data;
-    this.leftSubTree = leftTree;
-    this.rightSubTree = rightTree;
-  }
 
-  getData(){
-    return this.data;
-  }
+    this.left = null;
+    this.right = null;
+    this.parent = null;
 
-  setData(data){
-    this.data = data;
-  }
-
-  getLeftSubTree(){
-    return this.leftSubTree;
-  }
-
-  getRightSubTree(){
-    return this.rightSubTree;
-  }
-
-  setLeftSubTree(tree){
-    this.leftSubTree = tree;
-  }
-
-  setRightSubTree(tree){
-    this.rightSubTree = tree;
+    this.color = RED;
   }
 
   preOrderTraversal(tree){
     if(tree == null) return;
 
     console.log(tree.data);
-    this.preOrderTraversal(tree.getLeftSubTree());
-    this.preOrderTraversal(tree.getRightSubTree());
+    this.preOrderTraversal(tree.left);
+    this.preOrderTraversal(tree.right);
   }
 
   inOrderTraversal(tree){
     if(tree == null) return;
 
-    this.inOrderTraversal(tree.getLeftSubTree());
+    this.inOrderTraversal(tree.left);
     console.log(tree.data);
-    this.inOrderTraversal(tree.getRightSubTree());
+    this.inOrderTraversal(tree.right);
 
   }
 
   postOrderTraversal(tree){
     if(tree == null) return;
 
-    this.postOrderTraversal(tree.getLeftSubTree());
-    this.postOrderTraversal(tree.getRightSubTree());
+    this.postOrderTraversal(tree.left);
+    this.postOrderTraversal(tree.right);
     console.log(tree.data);
-  }
-
-  /*
-   * 여기부터 BinarySearchTree에 필요한 함수들
-  */
-  removeLeftSubTree(){
-    let deletingNode = this.getLeftSubTree();
-    this.setLeftSubTree(null);
-
-    return deletingNode;
-  }
-
-  removeRightSubTree(){
-    let deletingNode = this.getRightSubTree();
-    this.setRightSubTree(null);
-
-    return deletingNode;
   }
 }
 
-export { BinaryTree };
+export { BinaryTree, RED, BLACK };
