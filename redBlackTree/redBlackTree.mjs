@@ -102,10 +102,10 @@ class RedBlackTree{
     }
     newNode.parent = parent;
 
-    this.fixRedBlackPropertiesAfterInsert(newNode);
+    this.rebalanceAfterInsert(newNode);
   }
 
-  fixRedBlackPropertiesAfterInsert(node){
+  rebalanceAfterInsert(node){
     let parent = node.parent;
 
     // 1. 새로운 노드가 루트노드인 경우
@@ -135,12 +135,12 @@ class RedBlackTree{
       uncle.color = BLACK;
       grandParent.color = RED;
       
-      this.fixRedBlackPropertiesAfterInsert(grandParent);
+      this.rebalanceAfterInsert(grandParent);
     }
 
 
     // 4. 부모노드는 빨간색이고 삼촌노드는 검은색이고 새로운 노드는 안쪽 손자인 경우
-    else if(uncle == null || uncle.color == BLACK){
+    else if(this.isBlack(uncle) == true){
       if(grandParent.right == parent && parent.left == node){// 오른쪽의 안쪽 손자인 경우
         this.rotateRight(parent);
         this.rotateLeft(grandParent);
@@ -193,25 +193,24 @@ class RedBlackTree{
     }
 
     // currentNode는 이제 삭제할 노드를 가리킴,없는 경우 함수 종료했음
-    console.log(`삭제할 노드: ${currentNode.data}`);
     let replaceNode = null;
     let deletedNodeColor = RED;
 
     // 삭제할 노드의 자식이 0~1개일 때
     if(currentNode.left == null || currentNode.right == null){
-      replaceNode = this.deleteNodeWithZeroOrOneChild(currentNode);
+      replaceNode = this.removeWithZeroOrOneChild(currentNode);
       deletedNodeColor = currentNode.color;
     }else{ // 삭제할 노드의 자식이 2개일 때
-      let succesor = this.getMaximumNode(currentNode.left); // 대체할 노드는 왼쪽에서 가장 큰 값을 가져옴
+      let succesor = this.getBiggestNode(currentNode.left); // 대체할 노드는 왼쪽에서 가장 큰 값을 가져옴
       currentNode.data = succesor.data;
-      replaceNode = this.deleteNodeWithZeroOrOneChild(succesor);
+      replaceNode = this.removeWithZeroOrOneChild(succesor);
       deletedNodeColor = currentNode.color;
     }
 
     // 이까지하면 이진 탐색 트리처럼 삭제완료
     // 이제 삭제한 노드가 검은색인 경우 처리를 해줘야함
     if(deletedNodeColor == BLACK){
-      this.fixRedBlackPropertiesAfterDelete(replaceNode);
+      this.rebalanceAfterDelete(replaceNode);
 
       //임시로 만든 Nil노드 제거
       if(replaceNode instanceof NilNode){
@@ -220,7 +219,7 @@ class RedBlackTree{
     }
   }
 
-  deleteNodeWithZeroOrOneChild(node){
+  removeWithZeroOrOneChild(node){
     if(node.left != null){ // 왼쪽 자식이 한 개 있는 경우
       this.replaceParentsChild(node.parent, node, node.left); // 부모의 왼쪽 자식노드를 삭제할 노드의 왼쪽 자식으로 연결
       return node.left;
@@ -236,14 +235,14 @@ class RedBlackTree{
     }
   }
 
-  getMaximumNode(node){
+  getBiggestNode(node){
     while(node.right != null){
       node = node.right;
     }
     return node;
   }
 
-  fixRedBlackPropertiesAfterDelete(node){
+  rebalanceAfterDelete(node){
     if(node == this.root){ // 대체한 노드가 루트노드인 경우 검은색으로만 바꿔주고 종료
       node.color = BLACK;
       return;
@@ -265,7 +264,7 @@ class RedBlackTree{
         if(node.parent.color == RED){
           node.parent.color = BLACK;
         }else{ // 3. 부모 노드는 검은색인 경우
-          this.fixRedBlackPropertiesAfterDelete(node.parent);
+          this.rebalanceAfterDelete(node.parent);
         }
       }else{ //4,5. 형제의 두 자식중 하나라도 빨간색이고
         this.handleBlackSiblingWithAtLeastOneRedChild(node, sibling);
