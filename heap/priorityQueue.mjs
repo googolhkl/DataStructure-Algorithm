@@ -27,13 +27,29 @@ class MyData{
 
 
 let priorityQueue = new PriorityQueue();
-priorityQueue.enqueue(new MyData("enemy1", undefined, 1000)); // 체력 내림차순으로
-priorityQueue.enqueue(new MyData("enemy2", undefined, 2000)); // 체력 내림차순으로
-priorityQueue.enqueue(new MyData("enemy3", undefined, 900));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 5000));
+priorityQueue.enqueue(new MyData("enemy1", undefined, 100)); // 체력 내림차순으로
+priorityQueue.enqueue(new MyData("enemy2", undefined, 80)); // 체력 내림차순으로
+priorityQueue.enqueue(new MyData("enemy3", undefined, 70));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 50));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 60));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 62));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 68));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 48));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 45));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 55));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 59));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 40));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 42));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 63));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 64));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 30));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 35));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 10));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 20));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 47));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 48));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 55));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 57));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 33));
 
 console.log(priorityQueue.heap.root);
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());

@@ -59,19 +59,19 @@ class Heap{
                     // 오른쪽 형제가 있으면 오른쪽 형제의 가장 왼쪽 자식노드를 구한다.
                     firstRightSibling = this.getRightSibling(current);
                     if(firstRightSibling != null){
-                        while(firstRightSibling.left != null){
-                            firstRightSibling = firstRightSibling.left;
-                        }
                         break;
                     }
                 }
 
                 // 3.a 상위노드에서 오른쪽 형제가 있는 경우
-                if(firstRightSibling != null && firstRightSibling != this.lastInsertedNode.parent){
+                if(firstRightSibling != null){
+                    while(firstRightSibling.left != null){
+                        firstRightSibling = firstRightSibling.left;
+                    }
                     return firstRightSibling;
                 }
                 // 3.b 상위노드에서 오른쪽 형제가 없는 경우
-                else if(current.parent.right == current){
+                else{
                     current = this.root;
                     while(current.left != null){
                         current = current.left;
