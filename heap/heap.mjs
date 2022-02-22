@@ -97,7 +97,7 @@ class Heap{
     }
 
     isBigPriority(first, second){
-        return (first < second);
+        return (first.priority < second.priority);
     }
 
     remove(){
@@ -190,15 +190,19 @@ class Heap{
     }
 }
 
+class HeapData{
+    constructor(data, priority){
+        this.data = data;
+        this.priority = priority;
+    }
+}
+
 let heap = new Heap();
-heap.insert(1);
-heap.insert(2);
-heap.insert(3);
-heap.insert(4);
-heap.insert(5);
-heap.insert(6);
-heap.insert(7);
-console.log(heap.remove());
+heap.insert(new HeapData("enemy1", 2.15));
+heap.insert(new HeapData("enemy2", 3.2));
+heap.insert(new HeapData("enemy3", 0.5));
+
+//console.log(heap.remove());
 if(heap.root){
     heap.root.inOrderTraversal(heap.root);
 }
