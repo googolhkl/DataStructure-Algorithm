@@ -197,12 +197,4 @@ class HeapData{
     }
 }
 
-let heap = new Heap();
-heap.insert(new HeapData("enemy1", 2.15));
-heap.insert(new HeapData("enemy2", 3.2));
-heap.insert(new HeapData("enemy3", 0.5));
-
-//console.log(heap.remove());
-if(heap.root){
-    heap.root.inOrderTraversal(heap.root);
-}
+export { Heap, HeapData };
