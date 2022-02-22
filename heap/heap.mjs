@@ -128,8 +128,7 @@ class Heap{
         // 루트노드부터 제자리 찾아가기
         let current = this.root;
         do{
-            let higherChild = null;
-            higherChild = this.getHigherPriorityChild(current.left, current.right);
+            let higherChild = this.getHigherPriorityChild(current.left, current.right);
             if(higherChild == null){
                 break;
             }
@@ -154,22 +153,22 @@ class Heap{
             while(current.parent.parent != null){
                 current = current.parent;
 
-                // 왼쪽 형제가 있으면 왼쪽 형제의 가장 오른쪽 자식노드를 구한다.
                 firstLeftSibling = this.getLeftSibling(current);
                 if(firstLeftSibling != null){
-                    while(firstLeftSibling.right != null){
-                        firstLeftSibling = firstLeftSibling.right;
-                    }
                     break;
                 }
             }
 
             // 3.a 상위노드에서 왼쪽 형제가 있는 경우
-            if(firstLeftSibling != null && firstLeftSibling != this.lastInsertedNode.parent){
-                 prevLastInsertedNode = firstLeftSibling;
+            if(firstLeftSibling != null){
+                // 왼쪽 형제가 있으면 왼쪽 형제의 가장 오른쪽 자식노드를 구한다.
+                while(firstLeftSibling.right != null){
+                    firstLeftSibling = firstLeftSibling.right;
+                }
+                prevLastInsertedNode = firstLeftSibling;
             }
             // 3.b 상위노드에서 왼쪽 형제가 없는 경우
-            else if(current.parent.left == current){
+            else{
                 current = this.root;
                 while(current.right!= null){
                     current = current.right;
