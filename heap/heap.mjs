@@ -102,7 +102,6 @@ class Heap{
 
     remove(){
         let deletedNode = null;
-        let prevLastInsertedNode = null;
 
         if(this.lastInsertedNode == this.root){
             deletedNode = this.root;
@@ -111,6 +110,43 @@ class Heap{
             return deletedNode;
         }
 
+        let prevLastInsertedNode = this.getNewLastInsertedNode();
+
+        let tempData = this.root.data;
+        this.root.data = this.lastInsertedNode.data;
+        this.lastInsertedNode.data = tempData;
+        if(this.lastInsertedNode.parent.left == this.lastInsertedNode){
+            this.lastInsertedNode.parent.left = null;
+        }else{
+            this.lastInsertedNode.parent.right = null;
+        }
+        this.lastInsertedNode.parent = null;
+        deletedNode = this.lastInsertedNode;
+        this.lastInsertedNode = prevLastInsertedNode;
+
+
+        // 루트노드부터 제자리 찾아가기
+        let current = this.root;
+        do{
+            let higherChild = null;
+            higherChild = this.getHigherPriorityChild(current.left, current.right);
+            if(higherChild == null){
+                break;
+            }
+            else if(this.isBigPriority(current.data, higherChild.data) == false){
+                let tempData = current.data;
+                current.data = higherChild.data;
+                higherChild.data = tempData;
+                current = higherChild;
+            }else{
+                break;
+            }
+        }while(current.left != null || current.right != null)
+        return deletedNode;
+    }
+
+    getNewLastInsertedNode(){
+        let prevLastInsertedNode = null;
         // 삭제할 노드가 부모의 왼쪽 노드일 때
         if(this.lastInsertedNode == this.lastInsertedNode.parent.left){
             let current = this.lastInsertedNode;
@@ -146,35 +182,7 @@ class Heap{
             prevLastInsertedNode = this.lastInsertedNode.parent.left;
         }
 
-        let tempData = this.root.data;
-        this.root.data = this.lastInsertedNode.data;
-        this.lastInsertedNode.data = tempData;
-        if(this.lastInsertedNode.parent.left == this.lastInsertedNode){
-            this.lastInsertedNode.parent.left = null;
-        }else{
-            this.lastInsertedNode.parent.right = null;
-        }
-        this.lastInsertedNode.parent = null;
-        deletedNode = this.lastInsertedNode;
-        this.lastInsertedNode = prevLastInsertedNode;
-
-
-        // 루트노드부터 제자리 찾아가기
-        let current = this.root;
-        do{
-            let higherChild = null;
-            higherChild = this.getHigherPriorityChild(current.left, current.right);
-            if(higherChild == null){
-                break;
-            }
-            else if(this.isBigPriority(current.data, higherChild.data) == false){
-                let tempData = current.data;
-                current.data = higherChild.data;
-                higherChild.data = tempData;
-                current = higherChild;
-            }
-        }while(current.left != null || current.right != null)
-        return deletedNode;
+        return prevLastInsertedNode;
     }
 
     getHigherPriorityChild(left, right){

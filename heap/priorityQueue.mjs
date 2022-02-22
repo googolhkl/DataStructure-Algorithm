@@ -3,8 +3,8 @@ import { Heap } from "./heap.mjs";
 class PriorityQueue{
     constructor(){
         this.heap = new Heap();
-        this.heap.isBigPriority = function(first, second){ // 내림차순으로 변경
-            return (first > second);
+        this.heap.isBigPriority = function(first, second){ // 체력 높은게 우선순위 높음
+            return (first.priority > second.priority);
         } 
     }
 
@@ -28,7 +28,12 @@ class MyData{
 
 let priorityQueue = new PriorityQueue();
 priorityQueue.enqueue(new MyData("enemy1", undefined, 1000)); // 체력 내림차순으로
-priorityQueue.enqueue(new MyData("enemy2", undefined, 900));
+priorityQueue.enqueue(new MyData("enemy2", undefined, 2000)); // 체력 내림차순으로
+priorityQueue.enqueue(new MyData("enemy3", undefined, 900));
+priorityQueue.enqueue(new MyData("enemy4", undefined, 5000));
 
+console.log(priorityQueue.heap.root);
+console.log(priorityQueue.dequeue());
+console.log(priorityQueue.dequeue());
 console.log(priorityQueue.dequeue());
 console.log(priorityQueue.dequeue());
