@@ -197,11 +197,12 @@ class Heap{
     }
 }
 
-class HeapData{
-    constructor(data, priority){
-        this.data = data;
-        this.priority = priority;
+class Person{
+    constructor(name, age){
+        this.name = name;
+        this.age = age;
+        this.priority = age;
     }
 }
 
-export { Heap, HeapData };
+export { Heap, Person};

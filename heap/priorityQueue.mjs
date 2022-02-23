@@ -17,62 +17,23 @@ class PriorityQueue{
     }
 }
 
-class MyData{
-    constructor(data, rerserve1, priority){
-        this.data = data;
-        this.rerserve1 = rerserve1;
-        this.priority = priority;
+class Monster{
+    constructor(name, health){
+        this.name = name;
+        this.health = health;
+        this.priority = health;
     }
 }
 
 
 let priorityQueue = new PriorityQueue();
-priorityQueue.enqueue(new MyData("enemy1", undefined, 100)); // 체력 내림차순으로
-priorityQueue.enqueue(new MyData("enemy2", undefined, 80)); // 체력 내림차순으로
-priorityQueue.enqueue(new MyData("enemy3", undefined, 70));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 50));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 60));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 62));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 68));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 48));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 45));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 55));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 59));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 40));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 42));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 63));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 64));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 30));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 35));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 10));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 20));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 47));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 48));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 55));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 57));
-priorityQueue.enqueue(new MyData("enemy4", undefined, 33));
+priorityQueue.enqueue(new Monster("슬라임", 100));
+priorityQueue.enqueue(new Monster("슬라임", 87));
+priorityQueue.enqueue(new Monster("슬라임", 21));
+priorityQueue.enqueue(new Monster("슬라임", 47));
+priorityQueue.enqueue(new Monster("주황버섯", 200));
 
 
-//console.log(priorityQueue.heap.root);
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
-console.log(priorityQueue.dequeue());
 console.log(priorityQueue.dequeue());
 console.log(priorityQueue.dequeue());
 console.log(priorityQueue.dequeue());
