@@ -74,7 +74,7 @@ class Trie{
     }
 
     autoCompleteByCount(word){
-        let words = trie.autoComplete(word); // 자동완성 단어들
+        let words = this.autoComplete(word); // 자동완성 단어들
 
         // 힙 정렬(내림차순)
         let heap = new Heap();
@@ -110,19 +110,18 @@ class WordData{
 
 let trie = new Trie();
 
-trie.insert("감자");
+trie.insert("고등어");
 trie.insert("김치");
-trie.insert("감자부침개");
-trie.insert("감자볶음");
+trie.insert("김치찜");
 trie.insert("김치찌개");
-trie.insert("두부");
 
-trie.search("감자", true); // 유저들이 검색을함(counting됨)
-trie.search("감자", true);
-trie.search("감자", true);
-trie.search("감자부침개", true);
-trie.search("감자부침개", true);
+trie.search("김치찌개", true); // 유저들이 검색을함(counting됨)
+trie.search("김치찌개", true);
+trie.search("김치찌개", true);
+trie.search("김치찌개", true);
+trie.search("김치찌개", true);
+trie.search("김치찌개", true);
+trie.search("김치", true);
+trie.search("김치", true);
 
-
-
-console.log(trie.autoCompleteByCount("감자"));
+console.log(trie.autoCompleteByCount("김치"));
