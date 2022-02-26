@@ -17,29 +17,56 @@ class Vertex{
     }
 }
 
+function DFS(vertex, visited_vertices = {}){
 
-let jake = new Vertex("jake");
+    visited_vertices[vertex.value] = true;
+
+    console.log(`정점: ${vertex.value}`);
+
+    // 인접 정점 순회
+    for(let adjacent of vertex.adjacent_vertices){
+        if(visited_vertices[adjacent.value]){ // 이미 방문한 정점이라면
+            continue; //생략
+        }else{
+            DFS(adjacent, visited_vertices);
+        }
+    }
+}
+
+
 let ben = new Vertex("Ben");
-let joy = new Vertex("Joy");
 let ivy = new Vertex("Iby");
-let elin = new Vertex("Elin");
+let joy = new Vertex("Joy");
+let jake = new Vertex("jake");
 let ann = new Vertex("Ann");
 let jon = new Vertex("Jon");
+let elin = new Vertex("Elin");
+let owen = new Vertex("Owen");
 
-jake.addAdjacentVertex(ben);
+ben.addAdjacentVertex(ivy); // Ben
 ben.addAdjacentVertex(jake);
-joy.addAdjacentVertex(ben);
-joy.addAdjacentVertex(ivy);
+ben.addAdjacentVertex(ann);
+ben.addAdjacentVertex(jon);
+ivy.addAdjacentVertex(ben); // Ivy
 ivy.addAdjacentVertex(joy);
-ivy.addAdjacentVertex(ben);
-elin.addAdjacentVertex(ivy);
-elin.addAdjacentVertex(ann);
-ann.addAdjacentVertex(ben);
-ann.addAdjacentVertex(jon);
-ann.addAdjacentVertex(elin);
-jon.addAdjacentVertex(ann);
+joy.addAdjacentVertex(ivy); // Joy
+joy.addAdjacentVertex(jake);
+jake.addAdjacentVertex(ben); // Jake
+jake.addAdjacentVertex(joy);
+ann.addAdjacentVertex(ben); // Ann
+jon.addAdjacentVertex(ben); // Jon
+jon.addAdjacentVertex(elin);
+elin.addAdjacentVertex(jon); // Elin
+elin.addAdjacentVertex(owen);
+owen.addAdjacentVertex(elin); // Owen
 
 
+
+
+/*
 console.log(ann.adjacent_vertices);
 ann.removeAdjacentVertex(jon);
 console.log(ann.adjacent_vertices);
+*/
+
+DFS(ben);
