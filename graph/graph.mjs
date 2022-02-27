@@ -1,3 +1,5 @@
+import { Queue } from "./../Queue.mjs";
+
 class Vertex{
     constructor(value){
         this.value = value;
@@ -29,6 +31,30 @@ function DFS(vertex, visited_vertices = {}){
             continue; //생략
         }else{
             DFS(adjacent, visited_vertices);
+        }
+    }
+}
+
+function BFS(vertex){
+    let queue = new Queue();
+    let visited_vertices = {};
+
+
+    // 최초에 시작하는 정점을 방문했다고 저장하고 큐에도 넣는다.
+    visited_vertices[vertex.value] = true;
+    queue.enqueue(vertex);
+
+    while(queue.isEmpty() == false){
+        let currentVertex = queue.dequeue().data;
+        console.log(`정점: ${currentVertex.value}`);
+
+        for(let adjacent of currentVertex.adjacent_vertices){
+            if(visited_vertices[adjacent.value]){
+                continue;
+            }else{
+                visited_vertices[adjacent.value] = true;
+                queue.enqueue(adjacent);
+            }
         }
     }
 }
@@ -69,4 +95,5 @@ ann.removeAdjacentVertex(jon);
 console.log(ann.adjacent_vertices);
 */
 
-DFS(ben);
+//DFS(ben);
+BFS(ben);
