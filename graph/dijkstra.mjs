@@ -24,27 +24,31 @@ class Dijkstra{
 
     shortestPath(start_city, end_city){
         let visited_cities = {};
-        let unvisited_cities = Object.assign(this.all_cities);
+        let unvisited_cities = {};
         let shortest_path_table = {};
+
+        // unvisited_cities에 등록된 모든 도시 추가
+        for(let city in this.all_cities){
+            unvisited_cities[city] = this.all_cities[city];
+        }
 
         if(unvisited_cities[start_city.name] == null){
             console.log("시작 정점이 등록되어있지 않습니다");
             return null;
         }else{
-            //unvisited_cities[start_city.name] = 0;
-            for(let city_name in unvisited_cities){
-                shortest_path_table[city_name] = Infinity;
+            for(let city_name in unvisited_cities){ // 모든 도시의 최소 거리를 무한대로 설정
+                shortest_path_table[city_name] = {distance: Infinity, city: null};
             }
         }
-        shortest_path_table[start_city.name] = 0; // 시작 출발지는 거리가 0
-        //console.log(shortest_path_table);
+        shortest_path_table[start_city.name] = {distance: 0, city: null}; // 시작 출발지는 거리가 0, 이전 도시는 없음
 
+        // 방문하지 않은 도시가 없을 때 까지 반복
         while(Object.keys(unvisited_cities).length > 0){
             let closest_city_name;
 
             // unvisited_cities에서 가장 가까운 도시 선택
             for(let city_name in unvisited_cities){
-                if(closest_city_name == null || shortest_path_table[closest_city_name] > shortest_path_table[city_name]){
+                if(closest_city_name == null || shortest_path_table[closest_city_name].distance > shortest_path_table[city_name].distance){
                     closest_city_name = city_name;
                 }
             }
@@ -54,14 +58,28 @@ class Dijkstra{
 
             for(let adjacent_city_name in visited_cities[closest_city_name].adjacent_cities){ // 선택한 도시의 인접도시를 순회
                 // 선택한 도시까지의 최단 거리 + 인접도시까지의 거리가 shortest_path에 등록된 값보다 작다면 shortest_path_table 업데이트
-                let distance = shortest_path_table[closest_city_name] + visited_cities[closest_city_name].adjacent_cities[adjacent_city_name];
-                if(shortest_path_table[adjacent_city_name] > distance){
-                    shortest_path_table[adjacent_city_name] = distance;
+                let distance = shortest_path_table[closest_city_name].distance + visited_cities[closest_city_name].adjacent_cities[adjacent_city_name];
+                if(shortest_path_table[adjacent_city_name].distance > distance){
+                    shortest_path_table[adjacent_city_name].distance = distance;
+                    shortest_path_table[adjacent_city_name].city = visited_cities[closest_city_name];
                 }
             }
         }
 
-        console.log(shortest_path_table);
+        // 최단 거리로 가는 경로를 재귀적으로 호출
+        let path_string = this.showShortestPathRecursively(end_city.name, shortest_path_table);
+        console.log(path_string);
+    }
+
+    showShortestPathRecursively(destination_city_name, shortest_path_table, path_string = ""){
+        if(shortest_path_table[destination_city_name].city == null){ // 기저조건
+            path_string += destination_city_name;
+            return path_string;
+        }
+        path_string = this.showShortestPathRecursively(shortest_path_table[destination_city_name].city.name, shortest_path_table, path_string);
+        path_string += " -> " + destination_city_name;
+
+        return path_string;
     }
 }
 
@@ -113,3 +131,5 @@ daegu.addAdjacentCity(jeonju, 130);
 
 
 dijkstra.shortestPath(seoul, daegu);
+dijkstra.shortestPath(seoul, jeonju);
+dijkstra.shortestPath(gangneung, jeonju);
