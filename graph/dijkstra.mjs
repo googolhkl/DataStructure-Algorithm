@@ -94,12 +94,12 @@ let daejeon = new City("대전");
 let jeonju = new City("전주");
 let daegu = new City("대구");
 
-dijkstra.registCity(seoul);
-dijkstra.registCity(wonju);
-dijkstra.registCity(gangneung);
-dijkstra.registCity(daejeon);
-dijkstra.registCity(jeonju);
-dijkstra.registCity(daegu);
+dijkstra.registerCity(seoul);
+dijkstra.registerCity(wonju);
+dijkstra.registerCity(gangneung);
+dijkstra.registerCity(daejeon);
+dijkstra.registerCity(jeonju);
+dijkstra.registerCity(daegu);
 
 // 서울 연결
 seoul.addAdjacentCity(wonju, 87);
