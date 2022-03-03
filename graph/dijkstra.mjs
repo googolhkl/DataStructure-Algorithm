@@ -1,5 +1,5 @@
 class City{
-    constructor(name, distance){
+    constructor(name){
         this.name = name;
         this.adjacent_cities = {};
     }
@@ -18,7 +18,7 @@ class Dijkstra{
         this.all_cities = {};
     }
 
-    registCity(city){
+    registerCity(city){
         this.all_cities[city.name] = city;
     }
 
@@ -66,6 +66,7 @@ class Dijkstra{
             }
         }
 
+        console.log(shortest_path_table);
         // 최단 거리로 가는 경로를 재귀적으로 호출
         let path_string = this.showShortestPathRecursively(end_city.name, shortest_path_table);
         console.log(path_string);
@@ -131,5 +132,5 @@ daegu.addAdjacentCity(jeonju, 130);
 
 
 dijkstra.shortestPath(seoul, daegu);
-dijkstra.shortestPath(seoul, jeonju);
-dijkstra.shortestPath(gangneung, jeonju);
+//dijkstra.shortestPath(seoul, jeonju);
+//dijkstra.shortestPath(gangneung, jeonju);
