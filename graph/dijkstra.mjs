@@ -33,7 +33,7 @@ class Dijkstra{
         }
 
         if(unvisited_cities[start_city.name] == null){
-            console.log("시작 정점이 등록되어있지 않습니다");
+            console.log("시작 도시가 등록되어 있지 않습니다");
             return null;
         }else{
             for(let city_name in unvisited_cities){ // 모든 도시의 최소 거리를 무한대로 설정
