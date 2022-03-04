@@ -59,7 +59,7 @@ class Dijkstra{
             for(let adjacent_city_name in visited_cities[closest_city_name].adjacent_cities){ // 선택한 도시의 인접도시를 순회
                 // 선택한 도시까지의 최단 거리 + 인접도시까지의 거리가 shortest_path에 등록된 값보다 작다면 shortest_path_table 업데이트
                 let distance = shortest_path_table[closest_city_name].distance + visited_cities[closest_city_name].adjacent_cities[adjacent_city_name];
-                if(shortest_path_table[adjacent_city_name].distance > distance){
+                if(unvisited_cities[adjacent_city_name] != null && shortest_path_table[adjacent_city_name].distance > distance){
                     shortest_path_table[adjacent_city_name].distance = distance;
                     shortest_path_table[adjacent_city_name].city = visited_cities[closest_city_name];
                 }
