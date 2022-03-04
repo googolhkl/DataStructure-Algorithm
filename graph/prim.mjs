@@ -22,10 +22,10 @@ class Prim{
         this.all_cities[city.name] = city;
     }
 
-    showMST(start_city, end_city){
+    showMST(start_city){
         let visited_cities = {};
         let unvisited_cities = {};
-        let shortest_path_table = {};
+        let mst_table = {};
 
         // unvisited_cities에 등록된 모든 도시 추가
         for(let city in this.all_cities){
@@ -37,10 +37,10 @@ class Prim{
             return null;
         }else{
             for(let city_name in unvisited_cities){ // 모든 도시의 최소 거리를 무한대로 설정
-                shortest_path_table[city_name] = {distance: Infinity, city: null};
+                mst_table[city_name] = {distance: Infinity, city: null};
             }
         }
-        shortest_path_table[start_city.name] = {distance: 0, city: null}; // 시작 출발지는 거리가 0, 이전 도시는 없음
+        mst_table[start_city.name] = {distance: 0, city: null}; // 시작 출발지는 거리가 0, 이전 도시는 없음
 
         // 방문하지 않은 도시가 없을 때 까지 반복
         while(Object.keys(unvisited_cities).length > 0){
@@ -48,7 +48,7 @@ class Prim{
 
             // unvisited_cities에서 가장 가까운 도시 선택
             for(let city_name in unvisited_cities){
-                if(closest_city_name == null || shortest_path_table[closest_city_name].distance > shortest_path_table[city_name].distance){
+                if(closest_city_name == null || mst_table[closest_city_name].distance > mst_table[city_name].distance){
                     closest_city_name = city_name;
                 }
             }
@@ -58,14 +58,14 @@ class Prim{
 
             for(let adjacent_city_name in visited_cities[closest_city_name].adjacent_cities){ // 선택한 도시의 인접도시를 순회
                 let distance = visited_cities[closest_city_name].adjacent_cities[adjacent_city_name];
-                if(unvisited_cities[adjacent_city_name] != null && shortest_path_table[adjacent_city_name].distance > distance){
-                    shortest_path_table[adjacent_city_name].distance = distance;
-                    shortest_path_table[adjacent_city_name].city = visited_cities[closest_city_name];
+                if(unvisited_cities[adjacent_city_name] != null && mst_table[adjacent_city_name].distance > distance){
+                    mst_table[adjacent_city_name].distance = distance;
+                    mst_table[adjacent_city_name].city = visited_cities[closest_city_name];
                 }
             }
         }
 
-        console.log(shortest_path_table);
+        console.log(mst_table);
     }
 }
 
