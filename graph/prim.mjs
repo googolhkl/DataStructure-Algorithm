@@ -70,7 +70,7 @@ class Prim{
 }
 
 
-let dijkstra = new Prim();
+let prim = new Prim();
 
 let seoul = new City("서울");
 let wonju = new City("원주");
@@ -79,12 +79,12 @@ let daejeon = new City("대전");
 let jeonju = new City("전주");
 let daegu = new City("대구");
 
-dijkstra.registerCity(seoul);
-dijkstra.registerCity(wonju);
-dijkstra.registerCity(gangneung);
-dijkstra.registerCity(daejeon);
-dijkstra.registerCity(jeonju);
-dijkstra.registerCity(daegu);
+prim.registerCity(seoul);
+prim.registerCity(wonju);
+prim.registerCity(gangneung);
+prim.registerCity(daejeon);
+prim.registerCity(jeonju);
+prim.registerCity(daegu);
 
 // 서울 연결
 seoul.addAdjacentCity(wonju, 87);
@@ -116,4 +116,4 @@ daegu.addAdjacentCity(daejeon, 122);
 daegu.addAdjacentCity(jeonju, 130);
 
 
-dijkstra.showMST(seoul);
+prim.showMST(seoul);
