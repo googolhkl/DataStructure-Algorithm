@@ -6,6 +6,7 @@ class City{
 
     addAdjacentCity(city, flowAndCapacity){
         this.adjacent_cities[city.name] = flowAndCapacity;
+        city.adjacent_cities[this.name] = {flow: -flowAndCapacity.flow, capacity: flowAndCapacity.capacity};
     }
 
     removeAdjacentCity(city){
@@ -16,6 +17,7 @@ class City{
 class MaximumFlow{
     constructor(){
         this.all_cities = {};
+        this.paths = [];
     }
 
     registerCity(city){
@@ -27,12 +29,14 @@ class MaximumFlow{
             return true;
         }
         visited_cities[source.name] = true;
-        console.log(`정점: ${source.name}`);
+        //console.log(`정점: ${source.name}`);
 
         for(let adjacent in source.adjacent_cities){
+            let adjacent_city = source.adjacent_cities[adjacent];
             if(visited_cities[adjacent]){
                 continue;
-            }else{
+            }else if(adjacent_city.capacity - adjacent_city.flow > 0){
+                this.paths.push(source);
                 if(this.DFS(this.all_cities[adjacent], sink, visited_cities) == true){
                     return true;
                 }
@@ -40,6 +44,41 @@ class MaximumFlow{
         }
 
         return false;
+    }
+
+    FordFulkerson(source, sink){
+        let total = 0;
+
+        while(this.DFS(source, sink)){
+            //this.paths.push(sink);
+            let currentPathFlow = Infinity;
+            let tempPaths = [];
+
+            while(this.paths.length != 0){
+                let currentCity = this.paths.shift();
+                tempPaths.push(currentCity);
+                let nextCity = this.paths[0];
+                //if(nextCity == null || currentCity == nextCity){
+                if(nextCity == null){
+                    break;
+                }
+                currentPathFlow = Math.min(currentPathFlow, (currentCity.adjacent_cities[nextCity.name].capacity - currentCity.adjacent_cities[nextCity.name].flow));
+            }
+
+            while(tempPaths.length != 0){
+                let currentCity = tempPaths.shift();
+                let nextCity = tempPaths[0];
+                if(nextCity == null){
+                    break;
+                }
+                currentCity.adjacent_cities[nextCity.name].flow += currentPathFlow;
+                nextCity.adjacent_cities[currentCity.name].flow -= currentPathFlow;
+            }
+
+            total += currentPathFlow;
+
+        }
+        console.log(total);
     }
 }
 
@@ -62,5 +101,7 @@ a.addAdjacentCity(t,{ flow: 0, capacity: 2});
 
 b.addAdjacentCity(t,{ flow: 0, capacity: 2});
 
-//console.log(s);
-console.log(maximum_flow.DFS(s, t));
+//console.log(maximum_flow.DFS(s, t));
+//console.log(maximum_flow.paths);
+
+maximum_flow.FordFulkerson(s, t);
