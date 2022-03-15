@@ -1,32 +1,32 @@
-const I = Infinity;
-const map = [
+const costs = [
     [0,2,9,0],
     [1,0,6,4],
     [0,7,0,8],
     [6,3,0,0]
 ]
 
-let min = Infinity;
 
-function dfs(city, visited, unvisited){
-    if(unvisited.length == 0){ // 기저조건
-        return map[city][0]; // 마지막 도시에서 시작도시까지 거리
-    }
-    let prevMin = min;
-
-    for(let i = 0; i < unvisited.length; i++){ // 방문하지 않은 도시 순회
-        if(map[city][unvisited[i]] == 0) continue; // 현재 도시라면 건너 뛰기
-
-        // 방문하지 않은 도시를 방문했다고 설정
-        visited.push(unvisited[i]); 
-        let tempUnvisited = unvisited.filter((item) => item != unvisited[i]);
-
-        min = Math.min(min, dfs(unvisited[i],visited, tempUnvisited) + map[city][unvisited[i]]); // 현재 도시에서 다음 도시까지 가는 거리 + 다음 거리에서 가장 작은 값들중에서 가장 작은 값들을 더함
+function tsp(city, visitedCities){
+    if(visitedCities == (1 << costs.length) - 1){ // 마지막 방문 도시라면 
+        return costs[city][0]; // 마지막 도시에서 시작도시로 거리 리턴
     }
 
-    return min;
+    if(dp[city][visitedCities] != Infinity){ // 이미 계산했다면 계산한 결과 리턴
+        return dp[city][visitedCities];
+    }else{ // 계산한 적이 없다면 계산
+        for(let i = 0; i < costs.length; i++){ // 모든 도시 순회
+            if((visitedCities & (1 << i)) == 0 && costs[city][i] != 0){ // 방문하지않고 자기 자신이 아닌 경우
+                // 재귀적으로 호출                                           {(1,2) + T(2, {3,4})}
+                // 재귀적으로 호출                                           {(1,3) + T(3, {2,4})}
+                // 재귀적으로 호출                                           {(1,4) + T(4, {2,3})}
+                dp[city][visitedCities] = Math.min(dp[city][visitedCities], costs[city][i] + tsp(i, visitedCities | (1 << i)));
+            }
+        }
+
+        return dp[city][visitedCities];
+    }
 }
 
-let a = dfs(0, [], [0,1,2,3]);
-
-console.log(a);
+const dp = Array.from(Array(costs.length), () => Array((1 << costs.length) - 1).fill(Infinity));
+let minimumCost = tsp(0, 1);
+console.log(minimumCost);
